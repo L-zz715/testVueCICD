@@ -31,6 +31,9 @@ jobs:
     # uses: wangyucode/sftp-upload-action@24f8bb83383dc39bed201ee5da01475e6c38c568
       uses: L-zz715/testVueCICD@main
       # uses: s0/git-publish-subdir-action@develop
+      env:
+        WELCOME: "ssh scp ssh pipelines"
+        LASTSSH: "Doing something after copying"
       with:
         host: ${{ secrets.SERVER_IP }}  #你的nginx服务器公网ip
         port: ${{ secrets.SERVER_PORT }} #你的nginx服务器ssh端口
