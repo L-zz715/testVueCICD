@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Build and deploy to github
 # on 表示触发actions的条件
 on:
   push: 
