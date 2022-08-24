@@ -27,6 +27,7 @@ jobs:
     - run: npm install
     - run: npm run build
     - run: pwd
+    - run: cat ./test.txt
     - name: 自动同步文件夹到我的服务器
     # You may pin to the exact commit or the version.
     # uses: wangyucode/sftp-upload-action@24f8bb83383dc39bed201ee5da01475e6c38c568
