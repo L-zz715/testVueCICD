@@ -1,25 +1,60 @@
-name: Push-to-EC2
-
-# Trigger deployment only on push to master branch
+name: Build and deploy to github
+# on 表示触发actions的条件
 on:
-  push:
-    branches:
-      - main
+  push: 
+    branches: [ main ]  #main分支在push的时候会触发
+  pull_request:
+    branches: [ main ] #main分支在PR的时候会触发
 
 jobs:
-  deploy:
-    name: Deploy to EC2 on main branch push
-    runs-on: ubuntu-latest
+  build:
+
+    runs-on: ubuntu-latest #nodejs执行的操作系统
+
+    strategy:
+      matrix:
+        node-version: [14.x] #选择你需要的nodejs版本
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - name: Checkout the files
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@main #拉取你的最新代码
+    - name: 使用 Node.js ${{ matrix.node-version }}开始搞事情
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm install
+    - run: npm run build
+    - run: pwd
+    - run: cat ./test.txt
+    - name: 自动同步文件夹到我的服务器
+    # You may pin to the exact commit or the version.
+    # uses: wangyucode/sftp-upload-action@24f8bb83383dc39bed201ee5da01475e6c38c568
+      uses: L-zz715/testVueCICD@main
+      # uses: s0/git-publish-subdir-action@develop
+      # env:
+      #   WELCOME: "ssh scp ssh pipelines"
+      #   LASTSSH: "Doing something after copying"
+      env:
+        host: '143.198.100.147'  #你的nginx服务器公网ip
+        port: ${{ secrets.PORT }} #你的nginx服务器密码
+        username: ${{ secrets.USERNAME }} #你的nginx服务器用户名
+        password: ${{ secrets.PASSWORD }} #你的nginx服务器密码
+        connect_timeout: 10s
+        localDir: './test.txt' #你vue项目build好的文件的路径,每次服务器上会自动删除对应的文件夹后重新覆盖
+        remoteDir: /var/www/html #${{ secrets.SERVER_DESTINATION }} #你要把你build好的文件夹放到nginx服务器上的什么位置
+        
+        run: ./testt.h
 
-      - name: Deploy to Server 1
-        uses: L-zz715/testVueCICD@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
+
+
+
+      # - name: Deploy to Server 1
+      #   uses: L-zz715/testVueCICD@main
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+      #     REMOTE_HOST: ${{ secrets.HOST_DNS }}
+      #     REMOTE_USER: ${{ secrets.USERNAME }}
+      #     TARGET: ${{ secrets.TARGET_DIR }}
 
