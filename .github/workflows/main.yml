@@ -43,4 +43,4 @@ jobs:
         connect_timeout: 10s
         # localDir: './test.txt' #你vue项目build好的文件的路径,每次服务器上会自动删除对应的文件夹后重新覆盖
         remoteDir: /var/www/html #${{ secrets.SERVER_DESTINATION }} #你要把你build好的文件夹放到nginx服务器上的什么位置
-      - run: ./testt.sh
+      # - run: ./testt.sh
