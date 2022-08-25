@@ -1,7 +1,7 @@
 #! /bin/bash
 # 保存当前目录
 # currentDir=$PWD
-# echo "Start to publish...\n"
+echo "Start to publish...\n"
 # 切换到项目目录
 #cd /var/www/html
 # 执行git命令
@@ -13,5 +13,5 @@
 # rm -rvf /var/www/html/runtime/cache
 # echo "Success\n";
 # cd /home/git_dir
-output=`git pull origin main` > build.log
-echo "ret=" $?
+# output=`git pull origin main` > build.log
+# echo "ret=" $?
