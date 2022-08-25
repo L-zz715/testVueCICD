@@ -34,7 +34,7 @@ jobs:
         cd /var/www/html;
         git pull origin main;
         "
-      with: 
+      env: 
         host: ${{ secrets.HOSTIP }}  #你的nginx服务器公网ip
         port: ${{ secrets.PORT }} #你的nginx服务器密码
         password: ${{ secrets.PASSWORD }} #你的nginx服务器密码
