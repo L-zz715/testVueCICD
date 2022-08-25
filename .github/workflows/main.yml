@@ -28,7 +28,7 @@ jobs:
     - run: npm run build
     - run: pwd
     - run: cat ./test.txt
-    - run: ./testt.sh
+    # - run: ./testt.sh
     - name: 自动同步文件夹到我的服务器
     # You may pin to the exact commit or the version.
     # uses: wangyucode/sftp-upload-action@24f8bb83383dc39bed201ee5da01475e6c38c568
@@ -42,6 +42,6 @@ jobs:
         # username: ${{ secrets.USERNAME }} #你的nginx服务器用户名
         password: ${{ secrets.PASSWORD }} #你的nginx服务器密码
         connect_timeout: 10s
-        localDir: './test.txt' #你vue项目build好的文件的路径,每次服务器上会自动删除对应的文件夹后重新覆盖
-        remoteDir: /var/www #${{ secrets.SERVER_DESTINATION }} #你要把你build好的文件夹放到nginx服务器上的什么位置
-
+        # localDir: './test.txt' #你vue项目build好的文件的路径,每次服务器上会自动删除对应的文件夹后重新覆盖
+        remoteDir: /var/www/html #${{ secrets.SERVER_DESTINATION }} #你要把你build好的文件夹放到nginx服务器上的什么位置
+      - run: ./testt.sh

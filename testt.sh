@@ -1,7 +1,7 @@
 #! /bin/bash
 # 保存当前目录
 # currentDir=$PWD
-echo "Start to publish...\n"
+echo "Start in local to publish...\n"
 # 切换到项目目录
 #cd /var/www/html
 # 执行git命令
