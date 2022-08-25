@@ -37,10 +37,16 @@ jobs:
       #   WELCOME: "ssh scp ssh pipelines"
       #   LASTSSH: "Doing something after copying"
       env:
-        host: '132.142.312.32'  #你的nginx服务器公网ip
-        username: ${{ secrets.USERNAME }} #你的nginx服务器用户名
-        password: ${{ secrets.PASSWORD }} #你的nginx服务器密码
-        connect_timeout: 10s
-        localDir: './test.txt' #你vue项目build好的文件的路径,每次服务器上会自动删除对应的文件夹后重新覆盖
-        remoteDir: /var/www/html #${{ secrets.SERVER_DESTINATION }} #你要把你build好的文件夹放到nginx服务器上的什么位置
+        # host: '132.142.312.32'  #你的nginx服务器公网ip
+        # username: ${{ secrets.USERNAME }} #你的nginx服务器用户名
+        # password: ${{ secrets.PASSWORD }} #你的nginx服务器密码
+        # connect_timeout: 10s
+        # localDir: './test.txt' #你vue项目build好的文件的路径,每次服务器上会自动删除对应的文件夹后重新覆盖
+        # remoteDir: /var/www/html #${{ secrets.SERVER_DESTINATION }} #你要把你build好的文件夹放到nginx服务器上的什么位置
       # - run: ./testt.sh
+        SSH_PRIVATE_KEY: ${ { secrets.EC2_SSH_KEY }}
+        REMOTE_HOST: ${ { secrets.HOST_DNS }}
+        REMOTE_USER: ${ { secrets.USERNAME }}
+        localDir: './dist/*'
+        TARGET: ${ { secrets.TARGET_DIR }}
+
