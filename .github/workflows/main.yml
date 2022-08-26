@@ -13,24 +13,31 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x] #选择你需要的nodejs版本
+        node-version: [16.x] #选择你需要的nodejs版本
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@main #拉取你的最新代码
+    - uses: actions/checkout@main #拉取你的最新代码
     - name: 使用 Node.js ${{ matrix.node-version }}开始搞事情
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
-    - run: npm run build
-    - run: pwd
-    - run: cat ./test.txt
-    - name: 自动同步文件夹到我的服务器
+    - name: build project
+      run: |
+        npm install
+        npm run build
 
-
+    - name: FTP deploy 自动同步文件夹到我的服务器
+      uses: SamKirkland/FTP-Deploy-Action@2.0.0
+      env:
+        FTP_SERVER: ${{ secrets.SERVER_IP }}
+        FTP_USERNAME: ${{ secrets.USERNAME }}
+        FTP_PASSWORD: ${{ secrets.PASSWORD }}
+        PORT: ${{ secrets.SERVER_PORT }}
+        LOCAL_DIR: ./dist/*
+        REMOTE_DIR: /var/www/html
+        METHOD: sftp
     # You may pin to the exact commit or the version.
     # uses: wangyucode/sftp-upload-action@24f8bb83383dc39bed201ee5da01475e6c38c568
       # run: git pull origin main
