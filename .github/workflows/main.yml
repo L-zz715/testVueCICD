@@ -29,16 +29,6 @@ jobs:
     - run: pwd
     - run: cat ./test.txt
     - name: 自动同步文件夹到我的服务器
-      run: |
-        ssh root@143.198.100.147 "
-        cd /var/www/html;
-        git pull origin main;
-        "
-      env: 
-        host: ${{ secrets.HOSTIP }}  #你的nginx服务器公网ip
-        port: ${{ secrets.PORT }} #你的nginx服务器密码
-        password: ${{ secrets.PASSWORD }} #你的nginx服务器密码
-
 
 
     # You may pin to the exact commit or the version.
