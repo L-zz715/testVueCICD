@@ -35,7 +35,7 @@ jobs:
         FTP_USERNAME: ${{ secrets.USERNAME }}
         FTP_PASSWORD: ${{ secrets.PASSWORD }}
         PORT: ${{ secrets.SERVER_PORT }}
-        LOCAL_DIR: ./dist/*
+        LOCAL_DIR: ./dist/
         REMOTE_DIR: /var/www/html
         METHOD: sftp
     # You may pin to the exact commit or the version.
